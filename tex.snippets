@@ -1,0 +1,162 @@
+priority -50
+
+extends texmath
+
+snippet "b(egin)?" "begin{} / end{}" br
+\begin{${1:something}}
+	${0:${VISUAL}}
+\end{$1}
+endsnippet
+
+snippet todo "To Do tcolorbox" b
+\begin{todo}
+	$1
+\end{todo}
+$0
+endsnippet
+
+snippet usty "User Story tcolorbox" b
+\begin{ustory}{{${1:Author name and function}}}
+	\textit{\`\`$2''}
+\end{ustory}
+$0
+endsnippet
+
+snippet tab "tabular / array environment" b
+\begin{table}
+	\centering
+	\begin{${3:t}${3/(t)$|(a)$|(.*)/(?1:abular)(?2:rray)/}}{${4:c}}
+	$0${4/((?<=.)c|l|r)|./(?1: & )/g}
+	\end{$1${3/(t)$|(a)$|(.*)/(?1:abular)(?2:rray)/}}
+	\caption{$1}
+	\label{$2}
+\end{table}
+endsnippet
+
+snippet fig "Figure environment" b
+\begin{figure}${1:[htpb]}
+	\centering
+	\includegraphics[width=${2:0.8}\linewidth]{${3:name.ext}}
+	\caption{$0}
+	\label{fig:${3/(\w+)\.\w+/$1/}}
+\end{figure}
+endsnippet
+
+snippet figf "Float figure environment" b
+\begin{figure*}${1:[htpb]}
+	\centering
+	\includegraphics[width=${2:0.8}\linewidth]{${3:name.ext}}
+	\caption{$0}
+	\label{fig:${3/(\w+)\.\w+/$1/}}
+\end{figure*}
+endsnippet
+
+snippet enum "Enumerate" b
+\begin{enumerate}${1:[i]}
+	\item $0
+\end{enumerate}
+endsnippet
+
+snippet item "Itemize" b
+\begin{itemize}
+	\item $0
+\end{itemize}
+endsnippet
+
+snippet desc "Description" b
+\begin{description}
+	\item[$1] $0
+\end{description}
+endsnippet
+
+snippet it "Individual item" b
+\item $0
+endsnippet
+
+snippet itd "Individual description item" b
+\item[$1] $0
+endsnippet
+
+snippet part "Part" b
+\part{${1:part name}}
+\label{prt:${2:${1/(\w+)|\W+/(?1:\L$0\E:_)/ga}}}
+
+${0}
+endsnippet
+
+snippet cha "Chapter" b
+\chapter{${1:chapter name}}
+\label{cha:${2:${1/\\\w+\{(.*?)\}|\\(.)|(\w+)|([^\w\\]+)/(?4:_:\L$1$2$3\E)/ga}}}
+
+${0}
+endsnippet
+
+snippet sec "Section" b
+
+
+\section{${1:section name}}
+\label{sec:${2:${1/\\\w+\{(.*?)\}|\\(.)|(\w+)|([^\w\\]+)/(?4:_:\L$1$2$3\E)/ga}}}
+
+${0}
+endsnippet
+
+snippet secf "Section Float" b
+
+
+\section*{${1:section name}}
+\label{sec:${2:${1/\\\w+\{(.*?)\}|\\(.)|(\w+)|([^\w\\]+)/(?4:_:\L$1$2$3\E)/ga}}}
+
+${0}
+endsnippet
+
+snippet sub "Subsection" b
+
+\subsection{${1:subsection name}}
+\label{sub:${2:${1/\\\w+\{(.*?)\}|\\(.)|(\w+)|([^\w\\]+)/(?4:_:\L$1$2$3\E)/ga}}}
+
+${0}
+endsnippet
+
+snippet ssub "Subsubsection" b
+\subsubsection{${1:subsubsection name}}
+\label{ssub:${2:${1/\\\w+\{(.*?)\}|\\(.)|(\w+)|([^\w\\]+)/(?4:_:\L$1$2$3\E)/ga}}}
+${0}
+endsnippet
+
+snippet par "Paragraph" b
+\paragraph{${1:paragraph name}}
+\label{par:${2:${1/\\\w+\{(.*?)\}|\\(.)|(\w+)|([^\w\\]+)/(?4:_:\L$1$2$3\E)/ga}}}
+
+${0}
+endsnippet
+
+snippet subp "Subparagraph" b
+\subparagraph{${1:subparagraph name}}
+\label{par:${2:${1/\\\w+\{(.*?)\}|\\(.)|(\w+)|([^\w\\]+)/(?4:_:\L$1$2$3\E)/ga}}}
+
+${0}
+endsnippet
+
+snippet ni "Non-indented paragraph" b
+\noindent
+${0}
+endsnippet
+
+snippet pac "Package" b
+\usepackage[${1:options}]{${2:package}}$0
+endsnippet
+
+snippet lp "Long parenthesis"
+\left(${1:${VISUAL:contents}}\right)$0
+endsnippet
+
+snippet be "Bild einfuegen"
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{todo}
+	Bild einfuegen
+\end{todo}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+$0
+endsnippet
+# vim:ft=snippets:
+
