@@ -1,3 +1,19 @@
+# --------------------------------------------------------------------------- #
+# Copyright 2017 Florian Eich <flrn@nrmncr.net>
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+# --------------------------------------------------------------------------- #
+
 priority -50
 
 extends c
@@ -5,56 +21,298 @@ extends c
 # We want to overwrite everything in parent ft.
 priority -49
 
-###########################################################################
-#                            TextMate Snippets                            #
-###########################################################################
-snippet beginend "$1.begin(), $1.end() (beginend)"
-${1:v}${1/^.*?(-)?(>)?$/(?2::(?1:>:.))/}begin(), $1${1/^.*?(-)?(>)?$/(?2::(?1:>:.))/}end()
+#
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
+# Apache License Boilerplate Snippet
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
+#
+snippet apache "Apache License Boilerplate (apache)"
+/* --------------------------------------------------------------------------*
+ * Copyright 2017 Florian Eich <flrn@nrmncr.net>
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * --------------------------------------------------------------------------*/
 endsnippet
-
-snippet cl "class .. (class)"
-class ${1:`!p snip.rv = snip.basename or "name"`} {
-public:
-	${1/(\w+).*/$1/} (${2:arguments});
-	virtual ~${1/(\w+).*/$1/} ();
-
-private:
-	${0:/* data */}
-};
-endsnippet
-
+#
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
+# basic snippets:
+#		- namespace
+#		- template
+#		- class
+#		- struct
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
+#
 snippet ns "namespace .. (namespace)"
 namespace${1/.+/ /m}${1:`!p snip.rv = snip.basename or "name"`} {
-	${VISUAL}${0}
-}${1/.+/ \/* /m}$1${1/.+/ *\/ /m}
-endsnippet
 
-snippet readfile "read file (readF)"
-std::vector<char> v;
-if (FILE *fp = fopen(${1:"filename"}, "r")) {
-	char buf[1024];
-	while(size_t len = fread(buf, 1, sizeof(buf), fp))
-		v.insert(v.end(), buf, buf + len);
-	fclose(fp);
-}
-endsnippet
+${VISUAL}${0}
 
-snippet map "std::map (map)"
-std::map<${1:key}, ${2:value}> map$0;
+}${1/.+/  \/\/ /m}namespace $1${1/.+/ /m}
 endsnippet
-
-snippet vector "std::vector (v)"
-std::vector<${1:char}> v$0;
-endsnippet
-
+#
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
+#
 snippet tp "template <typename ..> (template)"
-template <typename ${1:_InputIter}>
+template <typename ${1:T}>
 endsnippet
+#
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
+#
+snippet cl "class .. (class)"
+class ${1:`!p snip.rv = snip.basename or "name"`}
+{
+public:
+	${0:/* functions */}
 
-snippet forr "for loop (for)"
-for (${1:element} : ${2:range}) {
+private:
+	${1:/* members */}
+};
+endsnippet
+#
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
+#
+snippet st "struct .. (struct)"
+struct ${1:`!p snip.rv = snip.basename or "name"`}
+{
+public:
+	${0:/* functions */}
+
+private:
+	${1:/* members */}
+};
+endsnippet
+#
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
+# STL container snippets:
+#		- array
+#		- vector
+#		- set
+#		- map
+#		- unordered set
+#		- unordered map
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
+#
+snippet arr "std::array (arr)"
+std::array<${1:T}, ${2:N}> ${3:name}$0;
+endsnippet
+#
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
+#
+snippet vec "std::vector (vec)"
+std::vector<${1:int}> ${2:name}$0;
+endsnippet
+#
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
+#
+snippet set "std::set (set)"
+std::set<${1:key}> ${2:name}$0;
+endsnippet
+#
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
+#
+snippet map "std::map (map)"
+std::map<${1:key}, ${2:value}> ${3:name}$0;
+endsnippet
+#
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
+#
+snippet uset "std::unordered_set (uset)"
+std::unordered_set<${1:key}> ${2:name}$0;
+endsnippet
+#
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
+#
+snippet umap "std::unordered_map (umap)"
+std::unordered_map<${1:key}, ${2:value}> ${3:name}$0;
+endsnippet
+#
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
+# Iterator begin end snippet
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
+#
+snippet be "$1.begin(), $1.end() (beginend)"
+${1:v}${1/^.*?(-)?(>)?$/(?2::(?1:>:.))/}begin(), $1${1/^.*?(-)?(>)?$/(?2::(?1:>:.))/}end()
+endsnippet
+#
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
+# for-Loop snippets:
+#		- classic for (i = 0; i < x; ++i) is in the C snippets file
+#		- int for: for (int i = 0; i < x; ++i)
+#		- range for: for (auto & element : range)
+#		- iterator for: for (auto it = c.begin(); i != c.end(); ++it)
+#		- int for: for (int i = 0; i < x; ++i)
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
+#
+snippet fori "for int loop (fori)"
+for (${4:int} ${2:i} = 0; $2 < ${1:count}; ${3:++$2}) {
 	${VISUAL}${0}
 }
 endsnippet
-
+#
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
+#
+snippet forr "for loop (forr)"
+for (auto & ${1:element} : ${2:range}) {
+	${VISUAL}${0}
+}
+endsnippet
+#
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
+#
+snippet forit "iterator for loop (forit)"
+for (auto it = ${1:begin}; it != ${2:end}; ++it) {
+	${VISUAL}${0}
+}
+endsnippet
+#
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
+# STL algorithm snippets:
+#		- for_each
+#		- find
+#		- find_if
+#		- fill
+#		- transform
+#		- generate
+#		- generate_n
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
+#
+snippet fore "std::for_each (fore)"
+std::for_each(${1:begin}, ${2:end}, ${0:unary operation});
+endsnippet
+#
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
+#
+snippet find "std::find (find)"
+std::find(${1:begin}, ${2:end}, ${0:element});
+endsnippet
+#
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
+#
+snippet find_if "std::find_if (find_if)"
+std::find_if(${1:begin}, ${2:end}, ${0:unary operation});
+endsnippet
+#
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
+#
+snippet fill "std::fill (fill)"
+std::fill(${1:begin}, ${2:end}, ${0:value});
+endsnippet
+#
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
+#
+snippet trans "std::transform (trans)"
+std::transform(${1:begin read}, ${2:end read}, ${3:begin write}, ${0:unary operation});
+endsnippet
+#
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
+snippet generate "std::generate (generate)"
+std::generate(${1:begin}, ${2:end}, ${0:generator function});
+endsnippet
+#
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
+#
+snippet generate_n "std::generate_n (generate_n)"
+std::generate_n(${1:begin}, ${2:count}, ${0:generator function});
+endsnippet
+#
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
+# STL algorithm snippets:
+#		- partition
+#		- stable_partition
+#		- is_sorted
+#		- sort
+#		- stable_sort
+#		- binary_search
+#		- min_element
+#		- max_element
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
+#
+snippet partition "std::partition (partition)"
+std::partition(${1:begin}, ${2:end}, ${0:unary operation});
+endsnippet
+#
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
+#
+snippet spartition "std::stable_partition (spartition)"
+std::stable_partition(${1:begin}, ${2:end}, ${0:unary operation});
+endsnippet
+#
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
+#
+snippet is_sorted "std::is_sorted (is_sorted)"
+std::issorted(${1:begin}, ${2:end}${0:, comparison function});
+endsnippet
+#
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
+#
+snippet sort "std::sort (sort)"
+std::sort(${1:begin}, ${2:end}${0:, comparison function});
+endsnippet
+#
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
+#
+snippet ssort "std::stable_sort (ssort)"
+std::stable_sort(${1:begin}, ${2:end}${0:, comparison function});
+endsnippet
+#
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
+#
+snippet binary_search "std::binary_search (binary_search)"
+std::binary_search(${1:begin}, ${2:end}, ${3:value}${0:, comparison function});
+endsnippet
+#
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
+#
+snippet min_element "std::min_element (min_element)"
+std::min_element(${1:begin}, ${2:end}${0:, comparison function});
+endsnippet
+#
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
+#
+snippet max_element "std::max_element (max_element)"
+std::max_element(${1:begin}, ${2:end}${0:, comparison function});
+endsnippet
+#
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
+# STL algorithm snippets:
+#		- iota
+#		- accumulate
+#		- reduce
+#		- transform_reduce
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
+#
+snippet iota "std::iota (iota)"
+std::iota(${1:begin}, ${2:end}, ${0:initial value});
+endsnippet
+#
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
+#
+snippet accumulate "std::accumulat (accumulate)"
+std::accumulate(${1:begin}, ${2:end}, ${3:initial value}${0:, binary operation});
+endsnippet
+#
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
+#
+snippet reduce "std::reduce (reduce)"
+std::reduce(${1:begin}, ${2:end}${3:, initial value}${0:, binary operation});
+endsnippet
+#
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
+#
+snippet transred "std::transform_reduce (transred)"
+std::transform_reduce(${1:begin}, ${2:end}, ${3:initial value}${4:, binary operation}${0:unary operation});
+endsnippet
+#
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
+#
 # vim:ft=snippets:

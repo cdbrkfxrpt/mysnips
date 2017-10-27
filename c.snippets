@@ -11,7 +11,10 @@ endsnippet
 snippet ifndef "#ifndef ... #define ... #endif"
 #ifndef ${1/([A-Za-z0-9_]+).*/$1/}
 #define ${1:SYMBOL} ${2:value}
-#endif
+
+$0
+
+#endif  // $1
 endsnippet
 
 snippet #if "#if #endif" b
@@ -21,13 +24,11 @@ ${VISUAL}${0}
 endsnippet
 
 snippet inc "#include local header (inc)"
-#include "${1:`!p snip.rv = snip.basename`}.h"
-$0
+#include "${1:`!p snip.rv = snip.basename`}"$0
 endsnippet
 
 snippet Inc "#include <> (Inc)"
-#include <$1.h>
-$0
+#include <$1>$0
 endsnippet
 
 snippet mark "#pragma mark (mark)"
@@ -39,25 +40,24 @@ ${1:#pragma mark -
 $0
 endsnippet
 
-snippet main "main() (main)"
+snippet main "main(int argc, char *argv[]) (main)"
 int main (int argc, char *argv[]) {
 	${VISUAL}${0}
 	return 0;
 }
 endsnippet
 
-snippet for "for loop (for)"
-for (${2:i} = 0; $2 < ${1:count}; ${3:$2++}) {
-	${VISUAL}${4}
+snippet smain "main() (smain)"
+int main () {
+	${VISUAL}${0}
+	return 0;
 }
-${0}
 endsnippet
 
-snippet fori "for int loop (fori)"
-for (${4:int} ${2:i} = 0; $2 < ${1:count}; ${3:$2++}) {
-	${VISUAL}${4}
+snippet for "for loop (for)"
+for (${2:i} = 0; $2 < ${1:count}; ${3:++$2}) {
+	${VISUAL}${0}
 }
-${0}
 endsnippet
 
 snippet enum "Enumeration"
