@@ -71,11 +71,7 @@ endsnippet
 snippet cl "class .. (class)"
 class ${1:`!p snip.rv = snip.basename or "name"`}
 {
-public:
-	${0:/* functions */}
-
-private:
-	${1:/* members */}
+	${0:/* implementation */}
 };
 endsnippet
 #
@@ -84,11 +80,7 @@ endsnippet
 snippet st "struct .. (struct)"
 struct ${1:`!p snip.rv = snip.basename or "name"`}
 {
-public:
-	${0:/* functions */}
-
-private:
-	${1:/* members */}
+	${0:/* implementation */}
 };
 endsnippet
 #
