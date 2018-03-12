@@ -51,6 +51,38 @@ snippet figf "Float figure environment" b
 \end{figure*}
 endsnippet
 
+snippet lst "Listing environment" b
+\begin{listing}${1:[htpb]}
+	\begin{minted}[
+		autogobble,
+		linenos,
+		numbersep=5pt,
+		frame=lines,
+		framesep=2mm
+	]{${2:c++}}
+		${3:// code}
+	\end{minted}
+	\caption{$4}
+	\label{lst:$0}
+\end{listing}
+endsnippet
+
+snippet lstf "Float listing environment" b
+\begin{listing*}${1:[htpb]}
+	\begin{minted}[
+		autogobble,
+		linenos,
+		numbersep=5pt,
+		frame=lines,
+		framesep=2mm
+	]{${2:c++}}
+		${3:// code}
+	\end{minted}
+	\caption{$4}
+	\label{lst:$0}
+\end{listing*}
+endsnippet
+
 snippet enum "Enumerate" b
 \begin{enumerate}${1:[i]}
 	\item $0
